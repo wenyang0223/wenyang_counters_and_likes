@@ -1,12 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/**/*.ts",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      { "src": "/api/(.*)", "dest": "/api/$1" }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/counter.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/counter",
+      "dest": "/api/counter.ts"
+    },
+    {
+      "src": "/api/counter(.*)",
+      "dest": "/api/counter.ts"
+    }
+  ]
+}
