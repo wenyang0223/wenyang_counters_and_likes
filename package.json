@@ -1,15 +1,15 @@
 {
-    "name": "hugo-counters-api",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-      "dev": "vercel dev"
-    },
-    "dependencies": {
-      "@neondatabase/serverless": "^0.9.0"  // 最新版支援 pooled
-    },
-    "devDependencies": {
-      "typescript": "^5.5.0",
-      "@types/node": "^22.0.0"
-    }
+  "name": "wenyang_counters_and_likes",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/node": "^22.5.0"
   }
+}
