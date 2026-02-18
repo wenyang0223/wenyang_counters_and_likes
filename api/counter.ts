@@ -3,10 +3,16 @@ import { neon } from '@neondatabase/serverless';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // 加入 CORS 標頭，讓 Hugo 等前端可以跨域呼叫
-  res.setHeader('Access-Control-Allow-Origin', '*'); // 生產時可改成你的 Hugo 網域
+  // CORS 標頭一定要放在最前面
+  res.setHeader('Access-Control-Allow-Origin', '*'); // 測試用 *，之後可改成 'http://localhost:1313' 或你的正式域名
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400'); // 讓瀏覽器快取預檢 24 小時
+
+  // 處理 CORS 預檢請求（這是關鍵！）
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
 
   // 處理 OPTIONS 預檢請求（CORS 必要）
   if (req.method === 'OPTIONS') {
