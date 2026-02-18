@@ -3,20 +3,16 @@ import { neon } from '@neondatabase/serverless';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS 標頭一定要放在最前面
-  res.setHeader('Access-Control-Allow-Origin', '*'); // 測試用 *，之後可改成 'http://localhost:1313' 或你的正式域名
+  // CORS 標頭 - 一定要在任何邏輯前設定
+  res.setHeader('Access-Control-Allow-Origin', '*');  // 測試用 *，允許 localhost
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Max-Age', '86400'); // 讓瀏覽器快取預檢 24 小時
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Max-Age', '86400');  // 快取預檢結果 24 小時
 
-  // 處理 CORS 預檢請求（這是關鍵！）
+  // 關鍵：明確處理 OPTIONS 預檢請求
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  // 處理 OPTIONS 預檢請求（CORS 必要）
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(204).end();  // 204 No Content 是 CORS 預檢標準回應
+    return;
   }
 
   // 取得查詢參數
